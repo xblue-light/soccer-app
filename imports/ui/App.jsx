@@ -46,7 +46,7 @@ export class App extends Component {
     this.showTeamStats       = this.showTeamStats.bind(this);
   }
 
-  // passing the object of players
+  // passing the object of players which come from MongoDB
   // into the map() method..
   renderPlayers() {
     return this.props.players.map((player) => (
@@ -82,12 +82,13 @@ export class App extends Component {
     if(this.state.showEditPlayer === true) {
       return (
         <Edit currentPlayer={this.state.currentPlayer}
-              showTeamStats={this.showTeamStats}/>
+              showTeamStats={this.showTeamStats}
+        />
       );
     }
     else {
       return (
-        <TeamStats />
+        <TeamStats players={this.props.players}/>
       );
     }
   }
@@ -107,16 +108,21 @@ export class App extends Component {
             </div>
             <div className="col s12 m5">
               <h2>Team List</h2>
-              <Link to="/new" className="waves-effect waves-light btn">Add Player</Link>
               <Divider/>
                 <List>
                   {this.renderPlayers()}
                 </List>
               <Divider/>
+              <br/>
+              <Link to="/new" className="waves-effect waves-light btn">Add Player</Link>
             </div>
-
-            <div className="col s12 m5">
+          </div>
+          <div className="row">
+            <div className="col s12">
+              <br/>
+              <Divider />
               {this.showForm()}
+              <Divider />
             </div>
           </div>
         </div>
