@@ -45,20 +45,20 @@ export default class TeamStats extends Component {
       return playmakingRisks + player.playmakingRisks;
     }, 0) / ( 3 * numPlayers )) * 100);
 
-    // calculate the defense stats..
-    // then divide the total amount of stats
+    //calculate the defense stats..
+    //then divide the total amount of stats
     const defense = Math.round((duelTackling      +
                                 fieldCoverage     +
                                 blockingAbilities +
                                 gameStrategy      +
-                                playmakingRisks)/5);
+                                playmakingRisks)/5 || 0);
 
     const offense = Math.round((kickingAbilities +
                                 ballManipulation +
                                 passingAbilities +
                                 fieldCoverage    +
                                 gameStrategy     +
-                                playmakingRisks)/6);
+                                playmakingRisks)/6 || 0);
 
     // wrap in math.round() and calculate the total of stats
     const total   = Math.round((kickingAbilities +
@@ -68,7 +68,7 @@ export default class TeamStats extends Component {
                                 gameStrategy     +
                                 playmakingRisks  +
                                 duelTackling     +
-                                blockingAbilities)/8);
+                                blockingAbilities)/8 || 0);
 
     // data object for react chartjs
     const data = {
