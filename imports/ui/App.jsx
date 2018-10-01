@@ -65,7 +65,7 @@ export class App extends Component {
     });
   }
 
-  // change our state for the show edit player to attribute
+  // change our state for the show edit player
   showEditForm() {
     this.setState({
       showEditPlayer: true,
