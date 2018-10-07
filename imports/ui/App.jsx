@@ -16,6 +16,8 @@ import Player from './Player';
 import AccountsWrapper from './AccountsWrapper';
 import Edit from './EditPlayer';
 
+import NewPlayerAppPage from './NewPlayerAppPage';
+
 // set a temporary data object
 const tempPlayer = {
   name:               "Temp Player",
@@ -44,6 +46,7 @@ export class App extends Component {
     this.updateCurrentPlayer = this.updateCurrentPlayer.bind(this);
     this.showEditForm        = this.showEditForm.bind(this);
     this.showTeamStats       = this.showTeamStats.bind(this);
+    this.dismissShowEditForm = this.dismissShowEditForm.bind(this);
   }
 
   // passing the object of players which come from MongoDB
@@ -72,6 +75,12 @@ export class App extends Component {
     });
   }
 
+  dismissShowEditForm() {
+    this.setState({
+      showEditPlayer: false,
+    })
+  }
+
   showTeamStats() {
     this.setState({
       showEditPlayer: false,
@@ -97,15 +106,20 @@ export class App extends Component {
     return (
       <MuiThemeProvider>
         <div className="container">
+
           <AppBar title="Soccer Application"
                   iconClassNameRight="muidocs-icon-navigation-expand-more"
                   showMenuIconButton={false}>
             <AccountsWrapper/>
           </AppBar>
+
           <div className="row">
             <div className="col s12 m7">
-              <Player player={this.state.currentPlayer} showEditForm={this.showEditForm} />
+              <Player player={this.state.currentPlayer}
+                      showEditForm={this.showEditForm}
+                      dismissShowEditForm={this.dismissShowEditForm}/>
             </div>
+
             <div className="col s12 m5">
               <h2>Team List</h2>
               <Divider/>
@@ -114,9 +128,11 @@ export class App extends Component {
                 </List>
               <Divider/>
               <br/>
+
               <Link to="/new" className="waves-effect waves-light btn">Add Player</Link>
             </div>
           </div>
+
           <div className="row">
             <div className="col s12">
               <br/>
@@ -125,6 +141,10 @@ export class App extends Component {
               <Divider />
             </div>
           </div>
+
+
+          <NewPlayerAppPage />
+
         </div>
       </MuiThemeProvider>
     )

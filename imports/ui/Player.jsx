@@ -25,6 +25,10 @@ export default class Player extends Component {
     this.props.showEditForm();
   }
 
+  dismissShowEditForm() {
+    this.props.dismissShowEditForm();
+  }
+
   render() {
 
     const player  = this.props.player;
@@ -117,6 +121,13 @@ export default class Player extends Component {
             labelPosition="before"
             style={styles.button}
             onClick={this.showEditForm.bind(this)}/>
+
+            <RaisedButton
+              label="Close Form"
+              labelPosition="before"
+              style={styles.button}
+              onClick={this.dismissShowEditForm.bind(this)}/>
+
         </CardActions>
       </Card>
     )

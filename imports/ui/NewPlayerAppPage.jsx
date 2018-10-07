@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Players } from '../api/players';
 import { Meteor } from 'meteor/meteor';
 
-class New extends Component {
+class NewPlayerAppPage extends Component {
   submitPlayer(event) {
     event.preventDefault();
 
@@ -46,7 +46,7 @@ class New extends Component {
 
       <div className="row">
         <form className="col s12" onSubmit={this.submitPlayer.bind(this)}>
-          <h3>Add a new player</h3>
+          <h3>Add a new player on the home page</h3>
 
           <div className="row">
             <div className="input-field col s6">
@@ -175,4 +175,4 @@ class New extends Component {
 
 // wrapping with router allows us
 // to push our data to the home page..
-export default withRouter(New);
+export default withRouter(NewPlayerAppPage);
