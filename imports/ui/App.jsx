@@ -9,13 +9,14 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router-dom';
 // database collection
 import { Players } from '../api/players';
-// import our components
+import data from '../api/questions.json';
 import TeamList from './Team-list';
 import TeamStats from './Team-stats';
 import Player from './Player';
 import AccountsWrapper from './AccountsWrapper';
 import Edit from './EditPlayer';
-
+import axios from 'axios';
+import News from './News';
 import NewPlayerAppPage from './NewPlayerAppPage';
 
 // set a temporary data object
@@ -41,34 +42,33 @@ export class App extends Component {
     this.state = {
       currentPlayer: tempPlayer,
       showEditPlayer: false,
-      value: 'male',
     };
 
     this.updateCurrentPlayer = this.updateCurrentPlayer.bind(this);
     this.showEditForm        = this.showEditForm.bind(this);
     this.showTeamStats       = this.showTeamStats.bind(this);
     this.dismissShowEditForm = this.dismissShowEditForm.bind(this);
-    this.handleChange        = this.handleChange.bind(this);
   }
 
-  // handle the radio buttons state
-  handleChange = event => {
-    console.log(event.target.value);
-    this.setState({ value: event.target.value });
-  };
+  handleCheckbox(event, isChecked, value) {
+    console.log(isChecked, value);
+    console.log(event);
+    //this.res.add(value);
+    //if (this.res.size === 3) console.log(this.res);
+
+  }
 
   // passing the object of players which come from MongoDB
   // into the map() method..
   renderPlayers() {
     return this.props.players.map((player) => (
-      <TeamList key={player._id}
-                player={player}
-                // we are passing our function into the component TeamList
-                updateCurrentPlayer={this.updateCurrentPlayer}/>
+      <TeamList
+        key={player._id}
+        player={player}
+        // we are passing our function into the component TeamList
+        updateCurrentPlayer={this.updateCurrentPlayer}/>
     ));
   }
-
-
 
   // This func will update the state above..
   // with whatever we click on one of the Players
@@ -113,10 +113,10 @@ export class App extends Component {
   }
 
   render() {
+
     return (
       <MuiThemeProvider>
         <div className="container">
-
           <AppBar title="Soccer Application"
                   iconClassNameRight="muidocs-icon-navigation-expand-more"
                   showMenuIconButton={false}>
@@ -125,9 +125,10 @@ export class App extends Component {
 
           <div className="row">
             <div className="col s12 m7">
-              <Player player={this.state.currentPlayer}
-                      showEditForm={this.showEditForm}
-                      dismissShowEditForm={this.dismissShowEditForm}/>
+              <Player
+                player={this.state.currentPlayer}
+                showEditForm={this.showEditForm}
+                dismissShowEditForm={this.dismissShowEditForm}/>
             </div>
 
             <div className="col s12 m5">
@@ -152,10 +153,19 @@ export class App extends Component {
             </div>
           </div>
 
-          <NewPlayerAppPage
-                handleChange={this.handleChange}
-                value={this.state.value}
-          />
+          <div>
+            {
+              data.map(element => (
+                <NewPlayerAppPage
+                  key={element.id}
+                  label={element.question}
+                  question={element.question}
+                  onChange={this.handleCheckbox}
+                />
+              ))
+            }
+
+          </div>
 
         </div>
       </MuiThemeProvider>
