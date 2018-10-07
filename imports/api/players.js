@@ -5,21 +5,22 @@ export const Players = new Mongo.Collection('players');
 
 // define set of rules to prevent our client..
 // from doing anything descructive to our database
-Players.allow({
-  insert() { return false },
-  update() { return false },
-  remove() { return false }
-});
-
-Players.deny({
-  insert() { return true },
-  update() { return true },
-  remove() { return true }
-})
+// Players.allow({
+//   insert() { return false },
+//   update() { return false },
+//   remove() { return false }
+// });
+//
+// Players.deny({
+//   insert() { return true },
+//   update() { return true },
+//   remove() { return true }
+// })
 
 // define our database schema ..
 // this is where we can define our data types, default values etc.
 const PlayerSchema = new SimpleSchema({
+  selectGender:      { type: String },
   name:              { type: String },
   team:              { type: String },
   ballManipulation:  { type: Number, defaultValue: 0 },

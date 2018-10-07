@@ -41,13 +41,21 @@ export class App extends Component {
     this.state = {
       currentPlayer: tempPlayer,
       showEditPlayer: false,
+      value: 'male',
     };
 
     this.updateCurrentPlayer = this.updateCurrentPlayer.bind(this);
     this.showEditForm        = this.showEditForm.bind(this);
     this.showTeamStats       = this.showTeamStats.bind(this);
     this.dismissShowEditForm = this.dismissShowEditForm.bind(this);
+    this.handleChange        = this.handleChange.bind(this);
   }
+
+  // handle the radio buttons state
+  handleChange = event => {
+    console.log(event.target.value);
+    this.setState({ value: event.target.value });
+  };
 
   // passing the object of players which come from MongoDB
   // into the map() method..
@@ -59,6 +67,8 @@ export class App extends Component {
                 updateCurrentPlayer={this.updateCurrentPlayer}/>
     ));
   }
+
+
 
   // This func will update the state above..
   // with whatever we click on one of the Players
@@ -142,8 +152,10 @@ export class App extends Component {
             </div>
           </div>
 
-
-          <NewPlayerAppPage />
+          <NewPlayerAppPage
+                handleChange={this.handleChange}
+                value={this.state.value}
+          />
 
         </div>
       </MuiThemeProvider>

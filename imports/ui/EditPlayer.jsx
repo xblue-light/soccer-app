@@ -11,6 +11,7 @@ export default class Edit extends Component {
 
     let player = {
       _id:               this.props.currentPlayer._id,
+      selectGender:      this.refs.selectGender.value,
       name:              this.refs.name.value,
       team:              this.refs.team.value,
       ballManipulation:  this.refs.ballManipulation.value,

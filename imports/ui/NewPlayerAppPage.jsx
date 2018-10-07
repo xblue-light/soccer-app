@@ -3,11 +3,24 @@ import { withRouter } from 'react-router-dom';
 import { Players } from '../api/players';
 import { Meteor } from 'meteor/meteor';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 class NewPlayerAppPage extends Component {
+
+  handleChange(){
+    this.props.handleChange();
+  }
+
   submitPlayer(event) {
     event.preventDefault();
 
     let player = {
+      selectGender:      this.refs.selectGender.props.value,
       name:              this.refs.name.value,
       team:              this.refs.team.value,
       ballManipulation:  this.refs.ballManipulation.value,
@@ -22,10 +35,13 @@ class NewPlayerAppPage extends Component {
       createdAt:         new Date(),
       owner:             Meteor.userId(),
     }
+    console.log(this.refs.name.value);
+    console.log(this.refs.selectGender.props.value);
 
     // basically calls the insertPlayer() method
     // that is defined in the server/main.js
     // else if there is an error display the reason.
+
     Meteor.call('insertPlayer', player, (error) => {
       if(error) {
         alert("Oups something went wrong: " + error.reason);
@@ -47,6 +63,21 @@ class NewPlayerAppPage extends Component {
       <div className="row">
         <form className="col s12" onSubmit={this.submitPlayer.bind(this)}>
           <h3>Add a new player on the home page</h3>
+
+          <FormControl component="fieldset">
+          <FormLabel component="legend">Gender</FormLabel>
+          <RadioGroup
+            aria-label="Gender"
+            name="radio-group"
+            value={this.props.value}
+            onChange={this.props.handleChange}
+            ref="selectGender"
+          >
+            <FormControlLabel value="female" control={<Radio />} label="female" />
+            <FormControlLabel value="male" control={<Radio />} label="male" />
+            <FormControlLabel value="other" control={<Radio />} label="other" />
+          </RadioGroup>
+        </FormControl>
 
           <div className="row">
             <div className="input-field col s6">
