@@ -1,7 +1,7 @@
-## Installation
+## Project setup local environment
 
-Make sure you have meteor.js client install globally.
-Install link:  https://www.meteor.com/install
+Make sure you have meteor.js client installed globally.
+Installation docs:  https://www.meteor.com/install
 
 ## Install dependencies
 
